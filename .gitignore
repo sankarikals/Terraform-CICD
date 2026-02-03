@@ -10,10 +10,6 @@
 # Terraform crash logs
 crash.log
 
-# Variable files (can contain secrets)
-*.tfvars
-*.tfvars.json
-
 # CLI config
 .terraformrc
 terraform.rc
