@@ -42,7 +42,13 @@ module "iam_role_ssm" {
     Environment = "dev"
   }
 }
-
+/*
+module "s3_backend" {
+  source      = "../../modules/backendconf"
+  environment = var.environment
+  account_id = var.account_id
+}
+*/
 module "ec2" {
   source = "../../modules/ec2"
   #for_each      = toset(module.vpc.public_subnet_ids)

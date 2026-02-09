@@ -9,7 +9,9 @@ variable "allowed_ports" {
   type        = list(number)
 }
 
-
+variable "account_id" {
+  type = string  
+}
 
 variable "environment" {
   description = "Environment name (dev, qa, prod)"

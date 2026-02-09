@@ -1,3 +1,16 @@
+resource "aws_dynamodb_table" "lock" {
+  name         = "terraform-lock-${var.environment}"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}
+
+
+/*
 resource "aws_s3_bucket" "tf_state" {
   bucket = "terraform-state-${var.environment}-${var.account_id}"
 
@@ -6,7 +19,7 @@ resource "aws_s3_bucket" "tf_state" {
   }
 }
 
-/* 
+ 
 resource "aws_s3_bucket" "tf_state" {
   bucket = "terraform-statefile-${var.environment}"
 
@@ -15,7 +28,7 @@ resource "aws_s3_bucket" "tf_state" {
     Environment = var.environment
   }
 }
-*/
+
 
 resource "aws_s3_bucket_versioning" "versioning" {
   bucket = aws_s3_bucket.tf_state.id
@@ -43,3 +56,4 @@ resource "aws_s3_bucket_public_access_block" "block_public" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+*/

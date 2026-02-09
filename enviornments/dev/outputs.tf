@@ -31,3 +31,5 @@ output "dev_ec2_public_dns" {
     for k, m in module.ec2 : k => m.public_dns
   }
 }
+
+
