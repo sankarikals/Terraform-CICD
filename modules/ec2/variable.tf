@@ -31,3 +31,13 @@ variable "environment" {
   description = "Environment name (dev, qa, prod)"
   type        = string
 }
+
+variable "associate_public_ip_address" {
+  description = "Whether to associate a public IP"
+  type        = bool
+}
+
+variable "user_data" {
+  type = string
+  
+}

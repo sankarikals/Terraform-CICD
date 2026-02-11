@@ -20,14 +20,16 @@ output "ec2_public_dns" {
 
 */
 
-output "qa_ec2_public_ips" {
+output "dev_ec2_public_ips" {
   value = {
     for k, m in module.ec2 : k => m.public_ip
   }
 }
 
-output "qa_ec2_public_dns" {
+output "dev_ec2_public_dns" {
   value = {
     for k, m in module.ec2 : k => m.public_dns
   }
 }
+
+

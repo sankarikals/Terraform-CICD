@@ -2,12 +2,12 @@ module "vpc" {
   source = "../../modules/vpc"
   
   environment = var.environment
-  vpc_cidr    = "10.0.0.0/16"
+  vpc_cidr    = var.vpc_cidr
   
-  public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24"]
+  public_subnet_cidrs  = var.public_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
   
-  availability_zones = ["us-east-1a", "us-east-1b"]
+  availability_zones = var.availability_zones
   
   tags = {
     Environment = var.environment
@@ -19,12 +19,12 @@ module "vpc" {
 module "security_group" {
   source = "../../modules/security_group"
 
-  name          = "dev"
+  name          = var.environment
   vpc_id        = module.vpc.vpc_id
   allowed_ports = var.allowed_ports
 
   tags = {
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 
@@ -36,10 +36,10 @@ output "security_group_id" {
 module "iam_role_ssm" {
   source = "../../modules/iam-role"
 
-  name = "dev"
+  name = var.environment
 
   tags = {
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 /*
@@ -63,8 +63,13 @@ module "ec2" {
   #subnet_id             = module.vpc.public_subnet_id[0]
   security_group_id     = module.security_group.security_group_id
   iam_instance_profile  = module.iam_role_ssm.instance_profile_name
+  associate_public_ip_address = var.associate_public_ip_address
+  user_data = templatefile("${path.module}/user_data.tftpl", {
+    environment = var.environment
+  })
 
+  # user_data = templatefile("${path.module}/user_data.sh")
   tags = {
     Environment = var.environment
   }
-}
+  }

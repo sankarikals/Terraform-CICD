@@ -1,0 +1,9 @@
+#!/bin/bash
+yum update -y
+yum install -y nginx
+systemctl start nginx
+systemctl enable nginx
+
+echo "<h1>This is my ${environment} server</h1>" > /usr/share/nginx/html/index.html
+echo "DEV ENV USER DATA EXECUTED" > /tmp/dev-proof.txt
+

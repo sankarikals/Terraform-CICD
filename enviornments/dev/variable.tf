@@ -18,6 +18,31 @@ variable "environment" {
   type        = string
 }
 
+variable "vpc_cidr" {
+  type = string
+  
+}
+
+variable "public_subnet_cidrs" {
+  description = "Public subnet CIDR blocks"
+  type        = list(string)
+}
+
+variable "private_subnet_cidrs" {
+  description = "Private subnet CIDR blocks"
+  type        = list(string)
+}
+
+variable "availability_zones" {
+  description = "Availability zones"
+  type        = list(string)
+}
+
+variable "associate_public_ip_address" {
+  type = bool
+  
+}
+
 variable "ami_id" {
   description = "AMI ID for EC2"
   type        = string
@@ -28,7 +53,13 @@ variable "instance_type" {
   type        = string
 }
 
+
+variable "user_data" {
+  type = string
+  default = ""
+}
 /*
+
 variable "environment" {
   type    = string
   default = "dev"
